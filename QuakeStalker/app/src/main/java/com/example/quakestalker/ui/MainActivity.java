@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position, Feature feature) {
                 Intent i = new Intent(MainActivity.this, DetailActivity.class);
                 i.putExtra("property",feature.getProperties());
+                i.putExtra("geometry",feature.getGeometry());
                 startActivity(i);
             }
         });

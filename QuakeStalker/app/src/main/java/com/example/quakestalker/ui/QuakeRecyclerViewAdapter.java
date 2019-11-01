@@ -91,7 +91,8 @@ public class QuakeRecyclerViewAdapter extends RecyclerView.Adapter<QuakeRecycler
             dateTxt = itemView.findViewById(R.id.date);
             this.listener = listener;
 
-            itemView.setOnClickListener(this);
+            if(listener != null)
+                itemView.setOnClickListener(this);
         }
 
         @Override
