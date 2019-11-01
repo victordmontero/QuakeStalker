@@ -2,6 +2,7 @@ package com.example.quakestalker.di;
 
 import com.example.quakestalker.models.Feature;
 import com.example.quakestalker.ui.MainActivity;
+import com.example.quakestalker.viewmodels.EarthquakeViewModel;
 
 import java.util.List;
 
@@ -10,9 +11,11 @@ import javax.inject.Singleton;
 import dagger.Component;
 import dagger.Provides;
 
-@Singleton
-@Component(modules = {EarthquakeModule.class})
+@Component
 public interface EarthquakeComponent {
-    void inject(MainActivity target);
+
+    EarthquakeService getEarthquakeService();
+
+    void inject(EarthquakeViewModel target);
 
 }

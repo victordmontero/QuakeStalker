@@ -1,5 +1,6 @@
 package com.example.quakestalker.di;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.quakestalker.models.Feature;
@@ -29,16 +30,33 @@ public class EarthquakeService {
     }
 
     public List<Feature> queryEarthquakes() {
-        Call<Quake> result;
+//        Call<Quake> result;
         EarthquakeApi api = retrofit.create(EarthquakeApi.class);
 
         try {
-            result = api.queryQuake();
-            return result.execute().body().getFeatures();
+            GetFeaturesTask task = new GetFeaturesTask();
+            task.execute(api);
+            return task.get();
         } catch (Exception ex) {
-            Log.e("EarthquakeService",ex.getMessage());
-        } finally {
+            Log.e("EarthquakeService", ex.getMessage());
+        }
+        return null;
+    }
+
+
+    public class GetFeaturesTask extends AsyncTask<EarthquakeApi, Void, List<Feature>> {
+
+        @Override
+        protected List<Feature> doInBackground(EarthquakeApi... earthquakeApis) {
+            Call<Quake> result;
+            try {
+                result = earthquakeApis[0].queryQuake();
+                return result.execute().body().getFeatures();
+            } catch (Exception ex) {
+                Log.e("EarthquakeService", ex.getMessage());
+            }
             return null;
         }
     }
+
 }
