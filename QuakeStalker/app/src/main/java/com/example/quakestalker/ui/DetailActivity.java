@@ -63,6 +63,9 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
         //earthquake coordinates
         LatLng earthquake = new LatLng(coordinates.get(1), coordinates.get(0));

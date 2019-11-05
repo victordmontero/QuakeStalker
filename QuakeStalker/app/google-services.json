@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "504301017954",
+    "firebase_url": "https://quakestalker-43a7a.firebaseio.com",
+    "project_id": "quakestalker-43a7a",
+    "storage_bucket": "quakestalker-43a7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504301017954:android:7499538a3535646ee96a3b",
+        "android_client_info": {
+          "package_name": "com.example.quakestalker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504301017954-qhcquuabs8vm83bk7ta1nv8rmm0di0b8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quakestalker",
+            "certificate_hash": "426dbe92449cb190e041fd057e36047002ab7e52"
+          }
+        },
+        {
+          "client_id": "504301017954-2rusl870ubplm6ut2h64qsucp6qbbs7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLGz2KOxUdLd1xn0QZZygCSPazC0ygLqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504301017954-2rusl870ubplm6ut2h64qsucp6qbbs7k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

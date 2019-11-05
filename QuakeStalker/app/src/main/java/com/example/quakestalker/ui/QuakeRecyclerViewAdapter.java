@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quakestalker.R;
 import com.example.quakestalker.models.Feature;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,8 +57,9 @@ public class QuakeRecyclerViewAdapter extends RecyclerView.Adapter<QuakeRecycler
         Feature quake = quakeList.get(position);
         holder.magnitudeTxt.setText(quake.getProperties().getMag().toString());
         holder.placeTxt.setText(quake.getProperties().getPlace());
-        Date date = new Date(quake.getProperties().getTime());
-        holder.dateTxt.setText(date.toString());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a dd/MM/yy");
+        holder.dateTxt.setText(dateFormat.format(new Date(quake.getProperties().getTime())));
     }
 
     @Override
