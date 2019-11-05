@@ -16,13 +16,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class DetailActivity extends AppCompatActivity  implements OnMapReadyCallback {
+public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap map;
     private Properties properties;
     private Geometry geometry;
+    private List<Double> coordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class DetailActivity extends AppCompatActivity  implements OnMapReadyCall
     }
 
     private void setMap() {
-        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -42,6 +45,9 @@ public class DetailActivity extends AppCompatActivity  implements OnMapReadyCall
     private void setViews() {
         properties = getIntent().getParcelableExtra("property");
         geometry = getIntent().getParcelableExtra("geometry");
+        coordinates = new ArrayList<Double>();
+        coordinates.add(getIntent().getDoubleExtra("longitude", 0));
+        coordinates.add(getIntent().getDoubleExtra("latitude", 0));
 
         ((TextView) findViewById(R.id.magnitude_detail))
                 .setText(properties.getMag().toString());
@@ -59,11 +65,10 @@ public class DetailActivity extends AppCompatActivity  implements OnMapReadyCall
         map = googleMap;
 
         //earthquake coordinates
-        LatLng earthquake = new LatLng(geometry.getCoordinates().get(0),
-                geometry.getCoordinates().get(1));
+        LatLng earthquake = new LatLng(coordinates.get(1), coordinates.get(0));
         map.addMarker(new MarkerOptions().position(earthquake).title(properties.getMag().toString()));
         map.moveCamera(CameraUpdateFactory.newLatLng(earthquake));
 
-        map.animateCamera(CameraUpdateFactory.zoomTo(11.0f));
+        map.animateCamera(CameraUpdateFactory.zoomTo(8.0f));
     }
 }

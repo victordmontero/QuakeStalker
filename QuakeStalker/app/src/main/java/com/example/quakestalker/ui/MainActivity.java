@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, DetailActivity.class);
                 i.putExtra("property",feature.getProperties());
                 i.putExtra("geometry",feature.getGeometry());
+                i.putExtra("longitude",feature.getGeometry().getCoordinates().get(0));
+                i.putExtra("latitude",feature.getGeometry().getCoordinates().get(1));
                 startActivity(i);
             }
         });

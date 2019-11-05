@@ -34,7 +34,10 @@ public class QuakeRecyclerViewAdapter extends RecyclerView.Adapter<QuakeRecycler
     }
 
     public QuakeRecyclerViewAdapter(List<Feature> features, OnItemClickListener listener) {
-        quakeList = features;
+        if (features != null)
+            quakeList = features;
+        else
+            quakeList = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -91,7 +94,7 @@ public class QuakeRecyclerViewAdapter extends RecyclerView.Adapter<QuakeRecycler
             dateTxt = itemView.findViewById(R.id.date);
             this.listener = listener;
 
-            if(listener != null)
+            if (listener != null)
                 itemView.setOnClickListener(this);
         }
 
