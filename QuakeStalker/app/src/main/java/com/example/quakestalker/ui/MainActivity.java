@@ -72,13 +72,14 @@ public class MainActivity extends AppCompatActivity {
         earthquakeViewModel.getFeatures().observe(this, new Observer<List<Feature>>() {
             @Override
             public void onChanged(List<Feature> features) {
+                adapter.submitList(features);
                 adapter.notifyDataSetChanged();
             }
         });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new QuakeRecyclerViewAdapter(earthquakeViewModel.getFeatures().getValue());
+        adapter = new QuakeRecyclerViewAdapter();
 
         adapter.setListener(new QuakeRecyclerViewAdapter.OnItemClickListener() {
             @Override

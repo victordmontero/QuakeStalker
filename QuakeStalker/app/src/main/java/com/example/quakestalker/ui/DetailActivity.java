@@ -1,11 +1,13 @@
 package com.example.quakestalker.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.quakestalker.R;
+import com.example.quakestalker.databinding.ActivityDetailBinding;
 import com.example.quakestalker.models.Geometry;
 import com.example.quakestalker.models.Properties;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,10 +29,12 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     private Geometry geometry;
     private List<Double> coordinates;
 
+    private ActivityDetailBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
         setViews();
         setMap();
@@ -49,15 +53,14 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         coordinates.add(getIntent().getDoubleExtra("longitude", 0));
         coordinates.add(getIntent().getDoubleExtra("latitude", 0));
 
-        ((TextView) findViewById(R.id.magnitude_detail))
-                .setText(properties.getMag().toString());
-
-        ((TextView) findViewById(R.id.place_detail)).setText(properties.getPlace());
+        Double mag = (double) Math.round(properties.getMag() * 100.0)/100.0;
+        binding.magnitudeDetail.setText(mag.toString());
+        binding.placeDetail.setText(properties.getPlace());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a dd/MM/yy");
         String date = dateFormat.format(new Date(properties.getTime()));
 
-        ((TextView) findViewById(R.id.date_detail)).setText(date);
+        binding.dateDetail.setText(date);
     }
 
     @Override

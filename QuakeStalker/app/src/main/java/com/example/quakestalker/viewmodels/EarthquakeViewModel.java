@@ -29,7 +29,7 @@ public class EarthquakeViewModel extends AndroidViewModel {
 
     public void init()
     {
-        if(features !=null)
+        if(features != null)
             return;
 
         features = new MutableLiveData<>();
