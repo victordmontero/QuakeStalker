@@ -57,12 +57,14 @@ dependencies {
     //Google Maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    //Open Street Map
+    implementation 'org.osmdroid:osmdroid-android:6.1.11'
+
     //VS App Center
     def appCenterSdkVersion = '2.4.1'
     implementation "com.microsoft.appcenter:appcenter-push:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
-
 
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
 

@@ -94,5 +94,43 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(adapter);
+
+        requestPermissionsIfNecessary(new String[] {
+                // if you need to show the current location, uncomment the line below
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                // WRITE_EXTERNAL_STORAGE is required in order to show the map
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        });
+    }
+
+    private void requestPermissionsIfNecessary(String[] permissions) {
+        ArrayList<String> permissionsToRequest = new ArrayList<>();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                permissionsToRequest.add(permission);
+            }
+        }
+        if (permissionsToRequest.size() > 0) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    permissionsToRequest.toArray(new String[0]),
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        ArrayList<String> permissionsToRequest = new ArrayList<>();
+        for (int i = 0; i < grantResults.length; i++) {
+            permissionsToRequest.add(permissions[i]);
+        }
+        if (permissionsToRequest.size() > 0) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    permissionsToRequest.toArray(new String[0]),
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
     }
 }
