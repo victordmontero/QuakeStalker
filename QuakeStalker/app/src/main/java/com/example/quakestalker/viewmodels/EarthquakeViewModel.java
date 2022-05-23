@@ -7,24 +7,17 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.quakestalker.di.DaggerEarthquakeComponent;
-import com.example.quakestalker.di.EarthquakeComponent;
 import com.example.quakestalker.di.EarthquakeService;
 import com.example.quakestalker.models.Feature;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class EarthquakeViewModel extends AndroidViewModel {
-    @Inject EarthquakeService service;
+    EarthquakeService service;
     private MutableLiveData<List<Feature>> features;
 
     public EarthquakeViewModel(@NonNull Application application) {
         super(application);
-//        service = new EarthquakeService();
-        EarthquakeComponent component = DaggerEarthquakeComponent.create();
-        component.inject(this);
     }
 
     public void init()
@@ -40,4 +33,7 @@ public class EarthquakeViewModel extends AndroidViewModel {
         return features;
     }
 
+    public void setService(EarthquakeService service) {
+        this.service = service;
+    }
 }

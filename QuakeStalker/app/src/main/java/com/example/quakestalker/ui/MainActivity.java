@@ -1,27 +1,28 @@
 package com.example.quakestalker.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.quakestalker.R;
+import com.example.quakestalker.databinding.ActivityMainBinding;
 import com.example.quakestalker.di.DaggerEarthquakeComponent;
 import com.example.quakestalker.di.EarthquakeComponent;
-import com.example.quakestalker.di.EarthquakeService;
+import com.example.quakestalker.di.EarthquakeModule;
 import com.example.quakestalker.models.Feature;
 import com.example.quakestalker.viewmodels.EarthquakeViewModel;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
@@ -29,18 +30,21 @@ import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.push.PushListener;
 import com.microsoft.appcenter.push.PushNotification;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.inject.Inject;
+
+public class MainActivity extends AppCompatActivity {
+    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     RecyclerView recyclerView;
     QuakeRecyclerViewAdapter adapter;
-    //    @Inject EarthquakeService service;
-    EarthquakeViewModel earthquakeViewModel;
+    @Inject EarthquakeViewModel earthquakeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         Push.setListener(new PushListener() {
             @Override
@@ -67,7 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 Crashes.class,
                 Push.class);
 
-        earthquakeViewModel = ViewModelProviders.of(this).get(EarthquakeViewModel.class);
+        EarthquakeComponent component = DaggerEarthquakeComponent.builder()
+                .earthquakeModule(new EarthquakeModule(this))
+                .build();
+        component.inject(this);
+
         earthquakeViewModel.init();
         earthquakeViewModel.getFeatures().observe(this, new Observer<List<Feature>>() {
             @Override
@@ -77,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new QuakeRecyclerViewAdapter();
 
