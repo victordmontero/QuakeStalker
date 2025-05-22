@@ -23,12 +23,6 @@ import com.example.quakestalker.di.EarthquakeComponent;
 import com.example.quakestalker.di.EarthquakeModule;
 import com.example.quakestalker.models.Feature;
 import com.example.quakestalker.viewmodels.EarthquakeViewModel;
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.crashes.Crashes;
-import com.microsoft.appcenter.push.Push;
-import com.microsoft.appcenter.push.PushListener;
-import com.microsoft.appcenter.push.PushNotification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,31 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        Push.setListener(new PushListener() {
-            @Override
-            public void onPushNotificationReceived(Activity activity, PushNotification pushNotification) {
-                String title = pushNotification.getTitle();
-                String message = pushNotification.getMessage();
-
-                if (message != null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
-                    if (title != null)
-                        builder.setTitle(title);
-                    builder.setMessage(message);
-
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.show();
-                }
-            }
-        });
-
-        AppCenter.start(getApplication(),
-                "1ff20481-a9cf-4c78-968f-245925ab8751",
-                Analytics.class,
-                Crashes.class,
-                Push.class);
 
         EarthquakeComponent component = DaggerEarthquakeComponent.builder()
                 .earthquakeModule(new EarthquakeModule(this))

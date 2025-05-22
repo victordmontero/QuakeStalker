@@ -11,7 +11,6 @@ import com.example.quakestalker.R;
 import com.example.quakestalker.databinding.ActivityDetailBinding;
 import com.example.quakestalker.models.Geometry;
 import com.example.quakestalker.models.Properties;
-import com.google.android.gms.maps.GoogleMap;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -30,7 +29,6 @@ import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private GoogleMap map;
     private Properties properties;
     private Geometry geometry;
     private List<Double> coordinates;
